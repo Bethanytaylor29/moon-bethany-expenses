@@ -1,6 +1,6 @@
 /* ─── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   font-size: 14px;
@@ -11,7 +11,7 @@ body {
   background-attachment: fixed;
   min-height: 100svh;
 }
- 
+
 /* ─── Login ─────────────────────────────────────────────────────────────── */
 .login-wrapper {
   min-height: 100svh;
@@ -20,7 +20,7 @@ body {
   justify-content: center;
   padding: 24px 16px;
 }
- 
+
 .login-card {
   width: 100%;
   max-width: 420px;
@@ -30,12 +30,10 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 12px 40px rgba(139,92,246,0.08);
 }
- 
-.login-stage {
-  background: linear-gradient(135deg, #f8dce8, #f6efe7 35%, #d8c3f0 100%);
-}
-.login-stage svg { display: block; width: 100%; }
- 
+
+.login-stage { display: block; }
+.login-stage canvas { display: block; width: 100%; height: auto; }
+
 .login-form {
   padding: 28px 28px 32px;
   opacity: 0;
@@ -43,7 +41,7 @@ body {
   transition: opacity .55s ease, transform .55s ease;
 }
 .login-form.visible { opacity: 1; transform: translateY(0); }
- 
+
 .login-eyebrow {
   font-size: 10px;
   font-weight: 600;
@@ -70,7 +68,7 @@ body {
   color: #a8a29e;
   margin-bottom: 24px;
 }
- 
+
 /* ─── Fields ────────────────────────────────────────────────────────────── */
 .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
 .field label, .field-label {
@@ -103,7 +101,7 @@ input[type="text"],
 }
 .field input:focus, input:focus { border-color: #c4b5fd; background: #fff; }
 input::placeholder { color: #d6d0cb; }
- 
+
 select, select.field-input {
   width: 100%;
   background: #faf8f6;
@@ -121,7 +119,7 @@ select, select.field-input {
   background-position: right 12px center;
 }
 select:focus { border-color: #c4b5fd; background-color: #fff; }
- 
+
 /* ─── Buttons ───────────────────────────────────────────────────────────── */
 .btn-primary {
   width: 100%;
@@ -139,7 +137,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   transition: background .15s, transform .1s;
 }
 .btn-primary:active { background: #7c3aed; transform: scale(0.99); }
- 
+
 .btn-ghost {
   padding: 9px 14px;
   background: rgba(255,255,255,0.7);
@@ -153,7 +151,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   min-height: 38px;
   -webkit-tap-highlight-color: transparent;
 }
- 
+
 .btn-delete {
   padding: 8px 10px;
   background: transparent;
@@ -168,10 +166,10 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   -webkit-tap-highlight-color: transparent;
 }
 .btn-delete:active { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
- 
+
 /* ─── App shell ─────────────────────────────────────────────────────────── */
 .app { min-height: 100svh; }
- 
+
 .app-header {
   background: rgba(255,255,255,0.82);
   backdrop-filter: blur(16px);
@@ -203,7 +201,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   letter-spacing: -0.3px;
   color: #1c1917;
 }
- 
+
 .app-main {
   max-width: 720px;
   margin: 0 auto;
@@ -212,7 +210,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   flex-direction: column;
   gap: 16px;
 }
- 
+
 /* ─── Summary cards ─────────────────────────────────────────────────────── */
 .summary-grid {
   display: grid;
@@ -249,7 +247,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
 .settle-card.settled { background: rgba(240,253,244,0.9); border-color: rgba(167,243,208,0.4); }
 .settle-card.settled .card-label { color: #059669; }
 .settle-card.settled .settle-value { color: #059669; }
- 
+
 /* ─── Section title ─────────────────────────────────────────────────────── */
 .section-title {
   font-size: 11px;
@@ -270,7 +268,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   padding: 1px 6px;
   border-radius: 99px;
 }
- 
+
 /* ─── Add expense form ──────────────────────────────────────────────────── */
 .expense-form {
   background: rgba(255,255,255,0.75);
@@ -288,7 +286,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   gap: 10px;
 }
 .form-field { display: flex; flex-direction: column; }
- 
+
 /* ─── Expense list ──────────────────────────────────────────────────────── */
 .expense-list {
   display: flex;
@@ -330,7 +328,7 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
 }
 .payer-moon    { background: #ede9fe; color: #6d28d9; }
 .payer-bethany { background: #fce7f3; color: #be185d; }
- 
+
 .empty-state {
   background: rgba(255,255,255,0.7);
   padding: 48px 20px;
@@ -338,8 +336,8 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
   color: #a8a29e;
   font-size: 14px;
 }
- 
-/* ─── Mobile (iPhone) ───────────────────────────────────────────────────── */
+
+/* ─── Mobile / iPhone ───────────────────────────────────────────────────── */
 @media (max-width: 599px) {
   .login-wrapper {
     padding: 0;
@@ -360,7 +358,6 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
     padding-bottom: calc(40px + env(safe-area-inset-bottom));
     flex: 1;
   }
- 
   .header-inner {
     padding: 14px 16px;
     padding-top: max(14px, env(safe-area-inset-top));
@@ -369,11 +366,9 @@ select:focus { border-color: #c4b5fd; background-color: #fff; }
     padding: 16px;
     padding-bottom: calc(40px + env(safe-area-inset-bottom));
   }
- 
   .summary-grid { grid-template-columns: 1fr 1fr; }
   .card-value { font-size: 18px; }
   .settle-value { font-size: 12px; }
- 
   .expense-form-row { grid-template-columns: 1fr; }
   .expense-row { padding: 12px; }
 }
