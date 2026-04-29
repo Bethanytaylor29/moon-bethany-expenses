@@ -1,3 +1,4 @@
+import LoginAnimation from './LoginAnimation'
 import { useEffect, useState } from 'react'
 import { supabase } from './supabase'
 import './App.css'
@@ -126,40 +127,47 @@ function App() {
   const moonOwes = Math.max(0, eachShare - moonPaid)
   const bethanyOwes = Math.max(0, eachShare - bethanyPaid)
 
-  if (!session) {
-    return (
-      <div className="container">
-        <div className="expense-form">
-          <h1>Login</h1>
+if (!session) {
+  return (
+    <div className="login-page">
+      <div className="login-card">
+        <LoginAnimation />
 
-          <form onSubmit={signIn}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        <h1>Moon & Bethany</h1>
 
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+        <p className="login-subtitle">
+          A pretty little ledger for shared adventures
+        </p>
 
-            <button type="submit">Login</button>
-          </form>
-        </div>
+        <form onSubmit={signIn} className="login-form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button type="submit">
+            Enter Trip Ledger
+          </button>
+        </form>
       </div>
-    )
-  }
-
+    </div>
+  )
+}
   return (
     <div className="container">
       <div className="app-header">
         <div className="sparkle">✦</div>
         <h1>Moon & Bethany Expenses</h1>
-        <p>Shared spening</p>
+        <p>Shared spending for luxe little adventures✈️ </p>
 
         <button onClick={signOut}>Logout</button>
       </div>
