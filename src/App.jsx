@@ -3,34 +3,55 @@ import { supabase } from './supabase'
 import './App.css'
 
 function App() {
+  const [session, setSession] = useState(null)
+
   const [expenses, setExpenses] = useState([])
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('Dining')
   const [amount, setAmount] = useState('')
   const [paidBy, setPaidBy] = useState('Moon')
 
-useEffect(() => {
-  fetchExpenses()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const channel = supabase
-    .channel('expenses-realtime')
-    .on(
-      'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'expenses',
-      },
-      () => {
-        fetchExpenses()
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    if (session) {
+      fetchExpenses()
+
+      const channel = supabase
+        .channel('expenses-realtime')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'expenses',
+          },
+          () => {
+            fetchExpenses()
+          }
+        )
+        .subscribe()
+
+      return () => {
+        supabase.removeChannel(channel)
       }
-    )
-    .subscribe()
-
-  return () => {
-    supabase.removeChannel(channel)
-  }
-}, [])
+    }
+  }, [session])
 
   async function fetchExpenses() {
     const { data, error } = await supabase
@@ -41,6 +62,23 @@ useEffect(() => {
     if (!error) {
       setExpenses(data)
     }
+  }
+
+  async function signIn(e) {
+    e.preventDefault()
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      alert(error.message)
+    }
+  }
+
+  async function signOut() {
+    await supabase.auth.signOut()
   }
 
   async function addExpense(e) {
@@ -74,10 +112,7 @@ useEffect(() => {
     }
   }
 
-  const totalSpent = expenses.reduce(
-    (sum, e) => sum + Number(e.amount),
-    0
-  )
+  const totalSpent = expenses.reduce((sum, e) => sum + Number(e.amount), 0)
 
   const moonPaid = expenses
     .filter((e) => e.paid_by === 'Moon')
@@ -91,13 +126,43 @@ useEffect(() => {
   const moonOwes = Math.max(0, eachShare - moonPaid)
   const bethanyOwes = Math.max(0, eachShare - bethanyPaid)
 
+  if (!session) {
+    return (
+      <div className="container">
+        <div className="expense-form">
+          <h1>Login</h1>
+
+          <form onSubmit={signIn}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <div className="app-header">
-  <div className="sparkle">✦</div>
-  <h1>Moon & Bethany Expenses</h1>
-  <p>Shared Spending</p>
-</div>
+        <div className="sparkle">✦</div>
+        <h1>Moon & Bethany Expenses</h1>
+        <p>Shared spening</p>
+
+        <button onClick={signOut}>Logout</button>
+      </div>
 
       <div className="summary-grid">
         <div className="summary-card">
@@ -168,20 +233,19 @@ useEffect(() => {
         {expenses.map((expense) => (
           <div key={expense.id} className="expense-card">
             <h3>
-  {expense.category === 'Dining' && '🍽️ '}
-  {expense.category === 'Hotel' && '🏨 '}
-  {expense.category === 'Flights' && '✈️ '}
-  {expense.category === 'Shopping' && '🛍️ '}
-  {expense.category === 'Spa' && '🧖‍♀️ '}
-  {expense.category === 'Transportation' && '🚗 '}
-  {expense.category === 'Groceries' && '🛒 '}
-  {expense.category === 'Entertainment' && '🎀 '}
-  {expense.category === 'Misc' && '✨ '}
-  {expense.description}
-</h3>
-            <div className={`category-pill ${expense.category.toLowerCase()}`}>
-  {expense.category}
-</div>
+              {expense.category === 'Dining' && '🍽️ '}
+              {expense.category === 'Hotel' && '🏨 '}
+              {expense.category === 'Flights' && '✈️ '}
+              {expense.category === 'Shopping' && '🛍️ '}
+              {expense.category === 'Spa' && '🧖‍♀️ '}
+              {expense.category === 'Transportation' && '🚗 '}
+              {expense.category === 'Groceries' && '🛒 '}
+              {expense.category === 'Entertainment' && '🎀 '}
+              {expense.category === 'Misc' && '✨ '}
+              {expense.description}
+            </h3>
+
+            <p>{expense.category}</p>
             <p>${expense.amount}</p>
             <span>{expense.paid_by}</span>
 
