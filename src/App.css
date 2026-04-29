@@ -1,0 +1,263 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8dce8, #f6efe7 35%, #d8c3f0 100%);
+  color: #2b1d26;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+h1 {
+  color: #2b1d26;
+  font-weight: 500;
+  font-size: 42px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.expense-form,
+.expense-card {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(22px);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(116, 79, 103, 0.22);
+}
+
+.expense-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px 140px;
+  gap: 12px;
+  padding: 22px;
+  margin-bottom: 28px;
+}
+
+input,
+select,
+button {
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 14px;
+}
+
+input,
+select {
+  background: rgba(255,255,255,0.78);
+  color: #2b1d26;
+  border: 1px solid rgba(116, 79, 103, 0.18);
+}
+
+button {
+  border: none;
+  background: linear-gradient(135deg, #f6b7cd, #d6a94f);
+  color: #2b1d26;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.expense-list {
+  display: grid;
+  gap: 14px;
+}
+
+.expense-card {
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 1fr 140px 120px 100px 90px;
+  align-items: center;
+}
+
+.expense-card h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.expense-card p {
+  margin: 0;
+  color: #6e5a65;
+}
+
+.expense-card span {
+  color: #a67c2d;
+  font-weight: 700;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 26px;
+  padding: 22px;
+  box-shadow: 0 22px 60px rgba(116, 79, 103, 0.18);
+  backdrop-filter: blur(22px);
+}
+
+.summary-card span {
+  display: block;
+  color: #7b6571;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.summary-card strong {
+  display: block;
+  color: #2b1d26;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+@media (max-width: 800px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.expense-card {
+  transition: all 0.2s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 60px rgba(116, 79, 103, 0.18);
+}
+
+.expense-card h3 {
+  font-size: 20px;
+}
+
+.expense-card p {
+  font-size: 16px;
+}
+.delete-button {
+  background: rgba(255, 255, 255, 0.55);
+  color: #8a4b5f;
+  border: 1px solid rgba(138, 75, 95, 0.18);
+  font-size: 13px;
+  padding: 10px 12px;
+}
+
+.delete-button:hover {
+  background: rgba(246, 183, 205, 0.6);
+}
+.category-pill {
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.category-pill.dining {
+  background: #ffd9e5;
+  color: #9c4b68;
+}
+
+.category-pill.hotel {
+  background: #e7dcff;
+  color: #6e57a5;
+}
+
+.category-pill.shopping {
+  background: #ffe7b8;
+  color: #9a6a00;
+}
+
+.category-pill.flights {
+  background: #dcefff;
+  color: #4b6d9c;
+}
+
+.category-pill.spa {
+  background: #f5d9ff;
+  color: #8a4b9c;
+}
+
+.category-pill.transportation {
+  background: #d9f5ff;
+  color: #3d7c8f;
+}
+
+.category-pill.groceries {
+  background: #dff7df;
+  color: #4a8b4a;
+}
+
+.category-pill.entertainment {
+  background: #ffe0f0;
+  color: #a34b7d;
+}
+
+.category-pill.misc {
+  background: #ececec;
+  color: #666;
+}
+@media (max-width: 800px) {
+  .container {
+    padding: 28px 16px;
+  }
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 22px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .summary-card {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .summary-card h2 {
+    font-size: 13px;
+  }
+
+  .summary-card p {
+    font-size: 22px;
+  }
+
+  .expense-form {
+    grid-template-columns: 1fr;
+    padding: 18px;
+    gap: 10px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .expense-card {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .expense-card h3 {
+    font-size: 19px;
+  }
+
+  .category-pill {
+    margin-top: 2px;
+  }
+
+  .delete-button {
+    width: 100%;
+    margin-top: 6px;
+  }
+}
