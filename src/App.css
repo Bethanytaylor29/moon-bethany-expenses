@@ -201,6 +201,72 @@ button {
   background: #ececec;
   color: #666;
 }
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: floatIn 0.7s ease;
+}
+
+.app-header h1 {
+  margin-bottom: 6px;
+}
+
+.app-header p {
+  margin: 0;
+  color: #8f6b7b;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+.sparkle {
+  font-size: 26px;
+  color: #d6a94f;
+  margin-bottom: 4px;
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+
+.summary-card,
+.expense-form,
+.expense-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.summary-card:hover,
+.expense-form:hover,
+.expense-card:hover {
+  transform: translateY(-3px);
+}
+
+button {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(194, 133, 155, 0.25);
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
 @media (max-width: 800px) {
   .container {
     padding: 28px 16px;

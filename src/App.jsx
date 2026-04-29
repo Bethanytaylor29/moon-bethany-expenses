@@ -74,7 +74,11 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Moon & Bethany Expenses</h1>
+      <div className="app-header">
+  <div className="sparkle">✦</div>
+  <h1>Moon & Bethany Expenses</h1>
+  <p>Shared spending, but make it pretty</p>
+</div>
 
       <div className="summary-grid">
         <div className="summary-card">
@@ -144,7 +148,18 @@ function App() {
       <div className="expense-list">
         {expenses.map((expense) => (
           <div key={expense.id} className="expense-card">
-            <h3>{expense.description}</h3>
+            <h3>
+  {expense.category === 'Dining' && '🍽️ '}
+  {expense.category === 'Hotel' && '🏨 '}
+  {expense.category === 'Flights' && '✈️ '}
+  {expense.category === 'Shopping' && '🛍️ '}
+  {expense.category === 'Spa' && '🧖‍♀️ '}
+  {expense.category === 'Transportation' && '🚗 '}
+  {expense.category === 'Groceries' && '🛒 '}
+  {expense.category === 'Entertainment' && '🎀 '}
+  {expense.category === 'Misc' && '✨ '}
+  {expense.description}
+</h3>
             <div className={`category-pill ${expense.category.toLowerCase()}`}>
   {expense.category}
 </div>
