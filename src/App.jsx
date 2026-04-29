@@ -96,7 +96,7 @@ useEffect(() => {
       <div className="app-header">
   <div className="sparkle">✦</div>
   <h1>Moon & Bethany Expenses</h1>
-  <p>Shared spending, but make it pretty</p>
+  <p>Shared Spending</p>
 </div>
 
       <div className="summary-grid">
