@@ -9,9 +9,28 @@ function App() {
   const [amount, setAmount] = useState('')
   const [paidBy, setPaidBy] = useState('Moon')
 
-  useEffect(() => {
-    fetchExpenses()
-  }, [])
+useEffect(() => {
+  fetchExpenses()
+
+  const channel = supabase
+    .channel('expenses-realtime')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'expenses',
+      },
+      () => {
+        fetchExpenses()
+      }
+    )
+    .subscribe()
+
+  return () => {
+    supabase.removeChannel(channel)
+  }
+}, [])
 
   async function fetchExpenses() {
     const { data, error } = await supabase
